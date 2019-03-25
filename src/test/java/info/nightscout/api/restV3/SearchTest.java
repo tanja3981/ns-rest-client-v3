@@ -45,29 +45,28 @@ public class SearchTest {
         Call<List<Profile>> call = service.search("profile");
         assertNotNull(call);
 
-        Response<List<Profile>> resp = call.execute();
-        call.enqueue(new Callback<List<Profile>>() {
-            @Override
-            public void onResponse(Call<List<Profile>> call, Response<List<Profile>> response) {
-                List<Profile> results = response.body();
-                for (Profile p : results) {
-                    System.out.println(p.toString());
-                }
-            }
+//        call.enqueue(new Callback<List<Profile>>() {
+//            @Override
+//            public void onResponse(Call<List<Profile>> call, Response<List<Profile>> response) {
+//                List<Profile> results = response.body();
+//                for (Profile p : results) {
+//                    System.out.println(p.toString());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Profile>> call, Throwable t) {
+//                t.printStackTrace();
+//            }
+//        });
 
-            @Override
-            public void onFailure(Call<List<Profile>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-//        Response<List<Profile>> response = call.execute();
-//        assertNotNull(response);
-//        List<Profile> results = response.body();
-//        assertNotNull(results);
-//        assertFalse(result.isEmpty());
-//        Profile profile = result.get(0);
-//        assertNotNull(profile.getIdentifier());
-//        assertNotNull(profile.get_id());
+        Response<List<Profile>> response = call.execute();
+        assertNotNull(response);
+        List<Profile> results = response.body();
+        assertNotNull(results);
+        assertFalse(results.isEmpty());
+        Profile profile = results.get(0);
+        assertNotNull(profile.getIdentifier());
+        assertNotNull(profile.get_id());
     }
 }

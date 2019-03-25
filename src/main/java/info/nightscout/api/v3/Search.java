@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface Search {
 
-    @GET("/{collection}")
+    @GET("/api/v3/{collection}")
     Call<List<Profile>> search(@Path("collection") String collection );
 }
