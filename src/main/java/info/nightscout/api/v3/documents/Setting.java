@@ -1,4 +1,4 @@
 package info.nightscout.api.v3.documents;
 
-public interface Document {
+public class Setting extends DocumentBase {
 }

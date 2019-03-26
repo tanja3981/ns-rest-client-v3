@@ -1,18 +1,18 @@
 package info.nightscout.api.v3.documents;
 
-public abstract class DocumentBase {
+public class DocumentBase {
     //required
     String identifier;
-    Integer date;
+    Long date;
     String app;
 
     String dateString;
     String device;
     String user;
     String _id;
-    Integer srvCreated;
+    Long srvCreated;
     String srvCreatedBy;
-    Integer srvModified;
+    Long srvModified;
     String srvModifiedBy;
     Boolean isValid;
 
@@ -24,11 +24,11 @@ public abstract class DocumentBase {
         this.identifier = identifier;
     }
 
-    public Integer getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(Integer date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 
@@ -72,11 +72,11 @@ public abstract class DocumentBase {
         this._id = _id;
     }
 
-    public Integer getSrvCreated() {
+    public Long getSrvCreated() {
         return srvCreated;
     }
 
-    public void setSrvCreated(Integer srvCreated) {
+    public void setSrvCreated(Long srvCreated) {
         this.srvCreated = srvCreated;
     }
 
@@ -88,11 +88,11 @@ public abstract class DocumentBase {
         this.srvCreatedBy = srvCreatedBy;
     }
 
-    public Integer getSrvModified() {
+    public Long getSrvModified() {
         return srvModified;
     }
 
-    public void setSrvModified(Integer srvModified) {
+    public void setSrvModified(Long srvModified) {
         this.srvModified = srvModified;
     }
 

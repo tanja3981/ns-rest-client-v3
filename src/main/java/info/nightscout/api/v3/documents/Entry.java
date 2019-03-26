@@ -1,6 +1,6 @@
 package info.nightscout.api.v3.documents;
 
-public class Entry extends DocumentBase implements Document {
+public class Entry extends DocumentBase {
     String type;
     Number sgv;
     String direction;
