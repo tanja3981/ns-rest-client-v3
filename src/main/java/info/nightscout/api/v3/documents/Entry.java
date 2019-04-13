@@ -9,4 +9,6 @@ public class Entry extends DocumentBase {
     Number unfiltered;
     Number rssi;
     String units;
+
+
 }

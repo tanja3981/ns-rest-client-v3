@@ -1,8 +1,9 @@
-package info.nightscout.api.restV3;
+package info.nightscout.api.v3.rest;
 
-import info.nightscout.api.v3.Collection;
-import info.nightscout.api.v3.Search;
-import info.nightscout.api.v3.documents.*;
+import info.nightscout.api.v3.documents.Entry;
+import info.nightscout.api.v3.documents.Profile;
+import info.nightscout.api.v3.documents.Setting;
+import info.nightscout.api.v3.documents.Treatment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +19,7 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 public class SearchTest {
-
+    final String token = "alexa-e17e799fab111d2a";
 
     @Before
     public void setUp() throws Exception {
@@ -37,8 +38,7 @@ public class SearchTest {
                 .build();
 
         Search service = retrofit.create(Search.class);
-        String date = Search.dateFormatter.format(new Date());
-        Call<List<Profile>> call = service.searchProfiles(date, Collections.emptyMap());
+        Call<List<Profile>> call = service.searchProfiles(Collections.emptyMap());
         assertNotNull(call);
 
         Response<List<Profile>> response = call.execute();
@@ -47,8 +47,8 @@ public class SearchTest {
         assertNotNull(results);
         assertFalse(results.isEmpty());
         Profile profile = results.get(0);
-        assertNotNull(profile.getIdentifier());
-        assertNotNull(profile.getDefaultProfile());
+        assertNotNull(profile.identifier);
+        assertNotNull(profile.defaultProfile);
     }
 
     @Test
@@ -60,8 +60,7 @@ public class SearchTest {
                 .build();
 
         Search service = retrofit.create(Search.class);
-        String date = Search.dateFormatter.format(new Date());
-        Call<List<Treatment>> call = service.searchTreatments(date, Collections.emptyMap());
+        Call<List<Treatment>> call = service.searchTreatments(Collections.emptyMap());
         assertNotNull(call);
         Response<List<Treatment>> response = call.execute();
         List<Treatment> results = response.body();
@@ -77,8 +76,7 @@ public class SearchTest {
                 .build();
 
         Search service = retrofit.create(Search.class);
-        String date = Search.dateFormatter.format(new Date());
-        Call<List<Setting>> call = service.searchSettings(date, Collections.emptyMap());
+        Call<List<Setting>> call = service.searchSettings(Collections.emptyMap());
         assertNotNull(call);
         Response<List<Setting>> response = call.execute();
         List<Setting> results = response.body();
@@ -94,21 +92,20 @@ public class SearchTest {
                 .build();
 
         Search service = retrofit.create(Search.class);
-        String date = Search.dateFormatter.format(new Date());
 
         Map<String, String> searchOptions = new HashMap<>();
         searchOptions.put("limit", "50");
         searchOptions.put("sort", "dateString");
 
-        Call<List<Entry>> call = service.searchEntries(date, searchOptions);
+        Call<List<Entry>> call = service.searchEntries(searchOptions);
         assertNotNull(call);
         Response<List<Entry>> response = call.execute();
         List<Entry> results = response.body();
         assertNotNull(results);
         assertEquals(50, results.size());
 
-        for(Entry e : results) {
-            System.out.println(e.getDateString());
+        for (Entry e : results) {
+            System.out.println(e.dateString);
         }
     }
 }

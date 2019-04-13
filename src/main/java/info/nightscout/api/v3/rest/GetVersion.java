@@ -1,5 +1,6 @@
-package info.nightscout.api.v3;
+package info.nightscout.api.v3.rest;
 
+import info.nightscout.api.v3.documents.Version;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

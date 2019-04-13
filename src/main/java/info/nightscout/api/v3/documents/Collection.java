@@ -1,4 +1,4 @@
-package info.nightscout.api.v3;
+package info.nightscout.api.v3.documents;
 
 /**
  * Available collections.
