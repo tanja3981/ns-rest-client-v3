@@ -22,16 +22,16 @@ public class SearchOptionsTest {
     @Test
     public void filter() {
         SearchOptions result = SearchOptions.create();
-        result.filter(Filter.EQUALS, "bla");
+        result.filter("app", Filter.EQUALS, "bla");
         Map<String, String> map = result.get();
         assertNotNull(map);
-        assertFalse("Filter is not set.", StringUtils.isEmpty(map.get("filter")));
-        assertEquals(map.get("filter"), "eq=bla");
+        assertFalse("Filter is not set.", StringUtils.isEmpty(map.get("app_eq")));
+        assertEquals(map.get("app_eq"), "bla");
 
         //append another filter
-        result.filter(Filter.GREATER_THAN, "5");
+        result.filter("insulin", Filter.GREATER_THAN, "5");
         map = result.get();
-        assertEquals("eq=bla&gt=5", map.get("filter"));
+        assertEquals("5", map.get("insulin_gt"));
 
     }
 

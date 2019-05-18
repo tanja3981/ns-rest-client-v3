@@ -1,7 +1,7 @@
-package info.nightscout.api.v3.search;
+package info.nightscout.api.v3.err;
 
 /**
- * If
+ *
  */
 public class InvalidSearchOptionException extends Exception {
 

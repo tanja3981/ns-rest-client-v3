@@ -28,6 +28,5 @@ public interface Search {
     @GET("/api/v3/settings/")
     Call<List<Setting>> searchSettings(@QueryMap Map<String, String> options);
 
-    @GET("/api/v3/treatments/")
-    Call<List<Treatment>> searchTreatments(@QueryMap Map<String, String> options);
+
 }

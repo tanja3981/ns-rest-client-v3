@@ -10,4 +10,5 @@ public class Profile extends DocumentBase {
     public Date created_at;
     public Long mills;
 
+
 }

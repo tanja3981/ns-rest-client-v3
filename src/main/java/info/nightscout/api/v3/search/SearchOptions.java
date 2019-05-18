@@ -1,6 +1,5 @@
 package info.nightscout.api.v3.search;
 
-import com.sun.istack.internal.NotNull;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
@@ -13,7 +12,7 @@ public class SearchOptions {
     private final Map<String, String> map;
 
     private SearchOptions() {
-        this.map = new HashMap<String, String>();
+        this.map = new HashMap<>();
     }
 
     public static SearchOptions create() {
@@ -26,21 +25,17 @@ public class SearchOptions {
     }
 
     /**
-     * Adds one or another filter.
-     * Can be called repeat
+     * Adds another filter.
+     * Can be called repeatedly to add multiple filters.
      *
      * @param filter
      * @param expression
-     * @return
+     * @return Search options
      */
-    public SearchOptions filter(@NotNull Filter filter, String expression) {
-        if (filter != null && !StringUtils.isEmpty(expression)) {
-            String filterExpr = map.getOrDefault("filter", "");
-            if (!filterExpr.isEmpty()) {
-                filterExpr = filterExpr.concat("&");
-            }
-            filterExpr = filterExpr.concat(filter.value).concat("=").concat(expression);
-            this.map.put("filter", filterExpr);
+    public SearchOptions filter(final String field, final Filter filter, final String expression) {
+        if (!StringUtils.isEmpty(field) && filter != null && !StringUtils.isEmpty(expression)) {
+            String filterExpr = field.concat("_").concat(filter.value);
+            this.map.put(filterExpr, expression);
         }
         return this;
     }
