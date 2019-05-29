@@ -55,8 +55,7 @@ public class TreatmentsService extends NightscoutService {
         }
     }
 
-
-    public void searchTreatments( Callback<List<Treatment>> cb, SearchOptions options) throws AuthorizationException, NightscoutException {
+    public void searchTreatments(Callback<List<Treatment>> cb, SearchOptions options) throws AuthorizationException, NightscoutException {
 
         Call<List<Treatment>> call = super.getRetrofit().create(Treatments.class).searchTreatments(options == null ? Collections.emptyMap() : options.get());
         call.enqueue(cb);

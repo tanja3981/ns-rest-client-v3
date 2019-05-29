@@ -3,7 +3,7 @@ package info.nightscout.api.v3.documents;
 /**
  * Available collections.
  */
-public enum Collection {
+public enum Collections {
     DEVICESTATUS("devicestatus"),
     ENTRIES("entries"),
     FOOD("food"),
@@ -13,7 +13,7 @@ public enum Collection {
 
     private final String value;
 
-    private Collection(String value) {
+    private Collections(String value) {
         this.value = value;
     }
 

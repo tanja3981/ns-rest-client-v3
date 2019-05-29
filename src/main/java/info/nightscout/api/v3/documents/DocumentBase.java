@@ -1,11 +1,16 @@
 package info.nightscout.api.v3.documents;
 
+import com.google.gson.Gson;
+
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
-public class DocumentBase {
+public class DocumentBase implements Serializable {
 
-    public static SimpleDateFormat FORMAT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+    private static SimpleDateFormat FORMAT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 
     //required
     public String identifier;
@@ -16,16 +21,21 @@ public class DocumentBase {
     public String dateString;
     public String device;
     public String user;
-    public String _id;
     public Long srvCreated;
     public String srvCreatedBy;
     public Long srvModified;
     public String srvModifiedBy;
     public Boolean isValid;
 
+    public Map<String, Object> fields = new HashMap<>();
+
     public DocumentBase() {
         this.date = System.currentTimeMillis();
         this.dateString = FORMAT.format(this.date);
     }
 
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 }

@@ -17,6 +17,10 @@ public class NightscoutException extends Exception {
         super(String.format("%s %s", response.code(), response.message()));
     }
 
+    public NightscoutException(String message) {
+        super(message);
+    }
+
     public NightscoutException(Exception e) {
         super(e);
     }

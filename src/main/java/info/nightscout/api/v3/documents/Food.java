@@ -1,20 +1,20 @@
 package info.nightscout.api.v3.documents;
 
 public class Food extends DocumentBase {
-    String food;
-    String category;
-    String subcategory;
-    String name;
-    Number portion;
-    String unit;
-    Number carbs;
-    Number fat;
-    Number protein;
-    Number energy;
-    Number gi;
-    boolean hideafteruse;
-    boolean hidden;
-    Number position;
-    Number portions;
-    Food foods;
+    public String food;
+    public String category;
+    public String subcategory;
+    public String name;
+    public Number portion;
+    public String unit;
+    public Number carbs;
+    public Number fat;
+    public Number protein;
+    public Number energy;
+    public Number gi;
+    public boolean hideafteruse;
+    public boolean hidden;
+    public Number position;
+    public Number portions;
+    public Food foods;
 }

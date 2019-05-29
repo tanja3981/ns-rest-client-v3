@@ -1,24 +1,32 @@
 package info.nightscout.api.v3;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import info.nightscout.api.v3.adapter.TreatmentAdapter;
 import info.nightscout.api.v3.auth.DateHeaderInterceptor;
 import info.nightscout.api.v3.auth.TokenInterceptor;
 import info.nightscout.api.v3.documents.LastModifiedResult;
+import info.nightscout.api.v3.documents.Status;
+import info.nightscout.api.v3.documents.Treatment;
 import info.nightscout.api.v3.documents.Version;
 import info.nightscout.api.v3.err.AuthorizationException;
 import info.nightscout.api.v3.err.NightscoutException;
 import info.nightscout.api.v3.rest.Nightscout;
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
+import org.apache.commons.lang3.StringUtils;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import javax.net.ssl.*;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.security.cert.CertificateException;
+import java.text.DateFormat;
+
+import static retrofit2.converter.gson.GsonConverterFactory.create;
 
 /**
  *
@@ -34,7 +42,22 @@ public class NightscoutService {
         this.authToken = authToken;
     }
 
-    public Version getVersion() throws  NightscoutException {
+    public Status getStatus() throws AuthorizationException, NightscoutException {
+        Retrofit retrofit = getRetrofit();
+        Nightscout service = retrofit.create(Nightscout.class);
+
+        Call<Status> call = service.getStatus();
+        try {
+            Response<Status> response = call.execute();
+            checkResponse(response);
+            return response.body();
+
+        } catch (IOException e) {
+            throw new NightscoutException(e);
+        }
+    }
+
+    public Version getVersion() throws NightscoutException {
 
         Retrofit retrofit = getRetrofit();
         Nightscout service = retrofit.create(Nightscout.class);
@@ -65,9 +88,21 @@ public class NightscoutService {
     }
 
     public Retrofit getRetrofit() throws NightscoutException {
+        if (StringUtils.isEmpty(url)) {
+            throw new NightscoutException("Missing Nightscout URL");
+        }
         try {
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Treatment.class, new TreatmentAdapter())
+                    .enableComplexMapKeySerialization()
+                    .serializeNulls()
+                    .setDateFormat(DateFormat.LONG)
+                    .setPrettyPrinting()
+                    .create();
+
             Retrofit.Builder builder = new Retrofit.Builder()
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(create(gson))
+                    .addConverterFactory(create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .baseUrl(url);
 
