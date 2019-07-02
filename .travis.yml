@@ -1,7 +1,5 @@
 language: java
 install: true
-jdk:
-  - openjdk8
-
+jdk: oraclejdk8
 script:
   - ./gradlew clean assemble
