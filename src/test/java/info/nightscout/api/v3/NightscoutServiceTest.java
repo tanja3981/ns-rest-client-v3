@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Properties;
 
 import static org.junit.Assert.*;
@@ -62,7 +63,6 @@ public class NightscoutServiceTest {
         LastModifiedResult result = service.getLastModified();
         assertNotNull(result);
         assertNotNull(result.srvDate);
-        assertNotNull(result.srvDateString);
         assertFalse(result.collections.isEmpty());
     }
 
@@ -71,8 +71,9 @@ public class NightscoutServiceTest {
         Status status = service.getStatus();
         assertNotNull(status);
         assertNotNull(status.apiPermissions);
-        assertNotNull(status.apiPermissions.treatments);
-        assertEquals("crud", status.apiPermissions.treatments);
+        Map<String, String> apiPermissions = status.apiPermissions;
+        assertNotNull(status.apiPermissions.get("treatments"));
+        assertEquals("crud", status.apiPermissions.get("treatments"));
     }
 
 }

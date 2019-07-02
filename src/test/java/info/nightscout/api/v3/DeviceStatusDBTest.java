@@ -4,6 +4,7 @@ import info.nightscout.api.v3.documents.Devicestatus;
 import info.nightscout.api.v3.err.AuthorizationException;
 import info.nightscout.api.v3.err.NightscoutException;
 import info.nightscout.api.v3.search.SearchOptions;
+import info.nightscout.api.v3.search.SearchService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -83,7 +84,7 @@ public class DeviceStatusDBTest {
 
     @Test(expected = NightscoutException.class)
     public void testInvalidBaseURL() throws Exception {
-        SearchService service = new SearchService("https://invalid.url.com/api/v3/", null);
+        DevicestatusService service = new DevicestatusService("https://invalid.url.com/api/v3/", null);
         service.getVersion();
 
         fail("Exception is missing");

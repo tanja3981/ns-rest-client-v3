@@ -1,10 +1,12 @@
 package info.nightscout.api.v3;
 
+import info.nightscout.api.v3.auth.LogInterceptor;
 import info.nightscout.api.v3.documents.Profile;
 import info.nightscout.api.v3.err.AuthorizationException;
 import info.nightscout.api.v3.err.NightscoutException;
 import info.nightscout.api.v3.search.Filter;
 import info.nightscout.api.v3.search.SearchOptions;
+import okhttp3.OkHttpClient;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +31,15 @@ public class ProfilesStoreTest {
         assertNotNull(baseUrl);
         assertNotNull(token);
 
-        service = new ProfilesService(baseUrl, token);
+        service = new ProfilesService(baseUrl, token) {
+            @Override
+            public void addTestInterceptors(OkHttpClient.Builder httpClient) {
+                LogInterceptor interceptor = new LogInterceptor();
+                if (!httpClient.interceptors().contains(interceptor)) {
+                    httpClient.addInterceptor(interceptor);
+                }
+            }
+        };
         service.disableSSL = true; //disable https requirements for tests
     }
 
@@ -71,7 +81,7 @@ public class ProfilesStoreTest {
     public void searchWithoutToken() throws Exception {
         ProfilesService service = new ProfilesService(baseUrl, null);
         service.disableSSL = Boolean.TRUE;
-        service.searchProfiles();
+        service.searchProfiles(null);
 
         fail("Exception is missing");
 
@@ -81,7 +91,7 @@ public class ProfilesStoreTest {
     public void searchWrongToken() throws Exception {
         ProfilesService service = new ProfilesService(baseUrl, "bla");
         service.disableSSL = Boolean.TRUE;
-        service.searchProfiles();
+        service.searchProfiles(null);
 
         fail("Exception is missing");
 
@@ -89,7 +99,7 @@ public class ProfilesStoreTest {
 
     @Test(expected = NightscoutException.class)
     public void testInvalidBaseURL() throws Exception {
-        SearchService service = new SearchService("https://invalid.url.com/api/v3/", null);
+        ProfilesService service = new ProfilesService("https://invalid.url.com/api/v3/", null);
         service.getVersion();
 
         fail("Exception is missing");
@@ -115,9 +125,15 @@ public class ProfilesStoreTest {
     @Test
     public void searchProfilesWithFilter() throws Exception {
         SearchOptions options = SearchOptions.create();
-        options.filter("user", Filter.EQUALS, "Tanja");
+        options.filter("user", Filter.EQUALS, "Test");
+        options.filter("app", Filter.EQUALS, "restApiV3-UnitTests");
         options.limit(10);
         List<Profile> resultList = service.searchProfiles(options);
         assertFalse(resultList.isEmpty());
+
+        options = SearchOptions.create();
+        options.filter("user", Filter.EQUALS, "Tanja");
+        resultList = service.searchProfiles(options);
+        assertTrue(resultList.isEmpty());
     }
 }

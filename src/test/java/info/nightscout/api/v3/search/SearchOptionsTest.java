@@ -25,13 +25,13 @@ public class SearchOptionsTest {
         result.filter("app", Filter.EQUALS, "bla");
         Map<String, String> map = result.get();
         assertNotNull(map);
-        assertFalse("Filter is not set.", StringUtils.isEmpty(map.get("app_eq")));
-        assertEquals(map.get("app_eq"), "bla");
+        assertFalse("Filter is not set.", StringUtils.isEmpty(map.get("app$eq")));
+        assertEquals(map.get("app$eq"), "bla");
 
         //append another filter
         result.filter("insulin", Filter.GREATER_THAN, "5");
         map = result.get();
-        assertEquals("5", map.get("insulin_gt"));
+        assertEquals("5", map.get("insulin$gt"));
 
     }
 
@@ -84,12 +84,12 @@ public class SearchOptionsTest {
         options.sortDesc("field1");
         Map<String, String> result = options.get();
         assertNotNull(result);
-        assertEquals("field1", result.get("sort_desc"));
+        assertEquals("field1", result.get("sort$desc"));
 
         options.sortDesc("field2");
         result = options.get();
         assertNotNull(result);
-        assertEquals("field2", result.get("sort_desc"));
+        assertEquals("field2", result.get("sort$desc"));
     }
 
     @Test

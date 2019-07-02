@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 
+import static info.nightscout.api.v3.documents.EventType.CORRECTION;
+import static info.nightscout.api.v3.documents.EventType.SNACK;
 import static org.junit.Assert.*;
 
 public class TreatmentsStoreTest {
@@ -36,11 +38,11 @@ public class TreatmentsStoreTest {
     @Test
     public void addTreatments() throws Exception {
 
-        Treatment t1 = createTreatment(12, 1, "TreatmentsStoreTest: add1", "Corr");
+        Treatment t1 = createTreatment(12, 1, "TreatmentsStoreTest: add1", CORRECTION);
         String result = service.addTreatment(t1);
         assertNotNull(result);
 
-        Treatment t2 = createTreatment(18, 1.5, "TreatmentsStoreTest: add2", "Bolus");
+        Treatment t2 = createTreatment(18, 1.5, "TreatmentsStoreTest: add2", SNACK);
         result = service.addTreatment(t2);
         assertNotNull(result);
 
@@ -58,11 +60,12 @@ public class TreatmentsStoreTest {
         return newTreatment;
     }
 
-    @Test
+    @Test//(timeout = 20000L)
     public void searchTreatmentsWithoutFilter() throws Exception {
 
-
-        List<Treatment> resultList = service.searchTreatments(null);
+        SearchOptions options = SearchOptions.create();
+        options.limit(100);
+        List<Treatment> resultList = service.searchTreatments(options);
 
         assertNotNull("No result received.", resultList);
         assertFalse("No results found.", resultList.isEmpty());
@@ -90,7 +93,7 @@ public class TreatmentsStoreTest {
 
     @Test(expected = NightscoutException.class)
     public void testInvalidBaseURL() throws Exception {
-        SearchService service = new SearchService("https://invalid.url.com/api/v3/", null);
+        TreatmentsService service = new TreatmentsService("https://invalid.url.com/api/v3/", null);
         service.getVersion();
 
         fail("Exception is missing");
