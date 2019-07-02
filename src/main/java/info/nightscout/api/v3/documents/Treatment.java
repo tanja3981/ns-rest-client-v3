@@ -1,31 +1,29 @@
 package info.nightscout.api.v3.documents;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
-import java.util.Map;
 
 public class Treatment extends DocumentBase {
-    public EventType eventType;
+    public String eventType;
     public String created_at;
     public String glucose;
     public String glucoseType;
     public String units;
-    public Integer carbs;
-    public Integer carbTime;
-    public Double insulin;
+    public Number carbs;
+    public Number carbTime;
+    public Number insulin;
     public String notes;
     public String enteredBy;
-    public Integer duration;
+    public Number duration;
     public Boolean isSMB;
-    public BolusCalc boluscalc;
+    public String boluscalcJson;
 
-    public void setBolusCalc(String json) {
-        Gson gson = new Gson();
-        boluscalc = gson.fromJson(json, BolusCalc.class);
+    public void setBolusCalcJson(String json) {
+        this.boluscalcJson = json;
+        //Gson gson = new Gson();
+        //boluscalc = gson.fromJson(json, BolusCalc.class);
     }
 
-    class BolusCalc {
+    /*class BolusCalc {
         public String eventTime;
         public double targetBGLow;
         public double targetBGHigh;
@@ -44,5 +42,5 @@ public class Treatment extends DocumentBase {
         public double insulintrend;
         public double insulin;
 
-    }
+    }*/
 }

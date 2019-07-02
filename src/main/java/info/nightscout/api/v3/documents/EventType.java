@@ -1,29 +1,25 @@
 package info.nightscout.api.v3.documents;
 
-public enum EventType {
+public interface EventType {
 
-    BG("BG Check"),
-    MEAL("Meal Bolus"),
-    SNACK("Snack Bolus"),
-    CORRECTION("Correction Bolus"),
-    COMBO_BOLUS("Combo Bolus"),
-    CARB_CORRECTON("Carb Correction"),
-    WIZARD("Bolus Wizard"),
-    SENSOR_START("Sensor Start"),
-    SENSOR_CHANGE("Sensor Change"),
-    INSULIN_CHANGE("Insulin Change"),
-    SITE_CHANGE("Site Change"),
-    TEMP_TARGET("Temporary Target"),
-    PBAT_CHANGE("Pump Battery Change"),
-    TEMP_BASAL("Temp Basal"),
-    EXERCISE("Exercise"),
-    NOTE("Note"),
-    OPENAPS_OFFLINE("OpenAPS Offline"),
-    PROFILE_SWITCH("Profile Switch"),
-    ANNOUNCEMENT("Announcement");
-    private String value;
+    String BG = "BG Check";
+    String MEAL = "Meal Bolus";
+    String SNACK = "Snack Bolus";
+    String CORRECTION = "Correction Bolus";
+    String COMBO_BOLUS = "Combo Bolus";
+    String CARB_CORRECTON = "Carb Correction";
+    String WIZARD = "Bolus Wizard";
+    String SENSOR_START = "Sensor Start";
+    String SENSOR_CHANGE = "Sensor Change";
+    String INSULIN_CHANGE = "Insulin Change";
+    String SITE_CHANGE = "Site Change";
+    String TEMP_TARGET = "Temporary Target";
+    String PBAT_CHANGE = "Pump Battery Change";
+    String TEMP_BASAL = "Temp Basal";
+    String EXERCISE = "Exercise";
+    String NOTE = "Note";
+    String OPENAPS_OFFLINE = "OpenAPS Offline";
+    String PROFILE_SWITCH = "Profile Switch";
+    String ANNOUNCEMENT = "Announcement";
 
-    EventType(String value) {
-        this.value = value;
-    }
 }

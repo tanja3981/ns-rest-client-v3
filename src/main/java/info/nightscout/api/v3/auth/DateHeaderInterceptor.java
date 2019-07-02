@@ -22,7 +22,7 @@ public class DateHeaderInterceptor implements Interceptor {
 
         Request.Builder builder = original.newBuilder()
                 .header("Date", getDateString());
-
+        //System.out.println(getDateString());
         Request request = builder.build();
         return chain.proceed(request);
     }
