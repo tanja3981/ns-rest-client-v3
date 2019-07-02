@@ -34,7 +34,7 @@ public class SearchOptions {
      */
     public SearchOptions filter(final String field, final Filter filter, final String expression) {
         if (!StringUtils.isEmpty(field) && filter != null && !StringUtils.isEmpty(expression)) {
-            String filterExpr = field.concat("_").concat(filter.value);
+            String filterExpr = field.concat("$").concat(filter.value);
             this.map.put(filterExpr, expression);
         }
         return this;
@@ -63,7 +63,7 @@ public class SearchOptions {
 
     public SearchOptions sortDesc(String sortDesc) {
         if (!StringUtils.isEmpty(sortDesc)) {
-            this.map.put("sort_desc", sortDesc);
+            this.map.put("sort$desc", sortDesc);
         }
         return this;
     }

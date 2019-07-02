@@ -1,12 +1,11 @@
 package info.nightscout.api.v3;
 
 import info.nightscout.api.v3.documents.Devicestatus;
-import info.nightscout.api.v3.documents.Treatment;
 import info.nightscout.api.v3.err.AuthorizationException;
 import info.nightscout.api.v3.err.NightscoutException;
 import info.nightscout.api.v3.rest.DeviceStatus;
-import info.nightscout.api.v3.rest.Treatments;
 import info.nightscout.api.v3.search.SearchOptions;
+import info.nightscout.api.v3.search.SearchService;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -16,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class DevicestatusService extends NightscoutService {
+public class DevicestatusService extends SearchService {
 
     public DevicestatusService(String baseUrl, String token) {
         super(baseUrl, token);

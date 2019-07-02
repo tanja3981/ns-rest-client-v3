@@ -11,7 +11,7 @@ import java.util.Map;
 public interface DeviceStatus {
 
     @GET("/api/v3/devicestatus/")
-    Call<List<Devicestatus>> searchDevicestatus(@QueryMap Map<String, String> options);
+    Call<List<Devicestatus>> searchDevicestatus(@QueryMap(encoded = true) Map<String, String> options);
 
     @GET("/api/v3/devicestatus/{identifier}")
     Call<Devicestatus> getDevicestatus(@Path("identifier") String identifier, @Query("fields") String fields);

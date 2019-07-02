@@ -11,7 +11,7 @@ import java.util.Map;
 public interface Profiles {
 
     @GET("/api/v3/profile/")
-    Call<List<Profile>> searchProfiles(@QueryMap Map<String, String> options);
+    Call<List<Profile>> searchProfiles(@QueryMap(encoded = true) Map<String, String> options);
 
     @GET("/api/v3/profile/{identifier}")
     Call<Profile> getProfile(@Path("identifier") String identifier, @Query("fields") String fields);
@@ -28,11 +28,11 @@ public interface Profiles {
     @DELETE("/api/v3/profile/{identifier}")
     Call<Void> deleteProfile(@Path("identifier") String identifier, @Query("permanent") Boolean permanent);
 
-    @GET("/api/v3/profile/history")
-    Call<List<Profile>> getHistory(@Header("Last-Modified") String lastModified, @Query("limit") Integer limit, @Query("fields") String fields);
+//    @GET("/api/v3/profile/history")
+//    Call<List<Profile>> syncProfiles(@Header("Last-Modified") String lastModified, @Query("limit") Integer limit, @Query("fields") String fields);
 
     @GET("/api/v3/profile/history/{lastModified}")
-    Call<List<Profile>> getHistory(@Path("lastModified") Integer lastModified, @Query("limit") Integer limit, @Query("fields") String fields);
+    Call<List<Profile>> syncProfiles(@Path("lastModified") Long lastModified, @Query("limit") Integer limit, @Query("fields") String fields);
 
 
 }

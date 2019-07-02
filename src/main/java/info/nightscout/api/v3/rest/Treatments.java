@@ -11,7 +11,7 @@ import java.util.Map;
 public interface Treatments {
 
     @GET("/api/v3/treatments/")
-    Call<List<Treatment>> searchTreatments(@QueryMap Map<String, String> options);
+    Call<List<Treatment>> searchTreatments(@QueryMap(encoded = true) Map<String, String> options);
 
     @GET("/api/v3/treatments/{identifier}")
     Call<Treatment> getTreatment(@Path("identifier") String identifier, @Query("fields") String fields);
@@ -28,11 +28,11 @@ public interface Treatments {
     @DELETE("/api/v3/treatments/{identifier}")
     Call<Void> deleteTreatment(@Path("identifier") String identifier, @Query("permanent") Boolean permanent);
 
-    @GET("/api/v3/treatments/history")
-    Call<List<Treatment>> getHistory(@Header("Last-Modified") String lastModified, @Query("limit") Integer limit, @Query("fields") String fields);
+//    @GET("/api/v3/treatments/history")
+//    Call<List<Treatment>> syncTreatments(@Query("limit") Integer limit, @Query("fields") String fields);
 
     @GET("/api/v3/treatments/history/{lastModified}")
-    Call<List<Treatment>> getHistory(@Path("lastModified") Integer lastModified, @Query("limit") Integer limit, @Query("fields") String fields);
+    Call<List<Treatment>> syncTreatments(@Path("lastModified") Long lastModified, @Query("limit") Integer limit, @Query("fields") String fields);
 
 
 }
