@@ -1,7 +1,8 @@
 package info.nightscout.api.v3.documents.treatments;
 
-import info.nightscout.api.v3.documents.EventType;
 import info.nightscout.api.v3.documents.Treatment;
+
+import static info.nightscout.api.v3.documents.EventType.TEMP_TARGET;
 
 public class TempTarget extends Treatment {
     public String reason;
@@ -9,6 +10,6 @@ public class TempTarget extends Treatment {
     public Double targetTop;
 
     public TempTarget() {
-        this.eventType = EventType.TEMP_TARGET;
+        this.eventType = TEMP_TARGET;
     }
 }

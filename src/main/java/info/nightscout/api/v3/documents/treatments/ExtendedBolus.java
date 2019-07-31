@@ -1,7 +1,8 @@
 package info.nightscout.api.v3.documents.treatments;
 
-import info.nightscout.api.v3.documents.EventType;
 import info.nightscout.api.v3.documents.Treatment;
+
+import static info.nightscout.api.v3.documents.EventType.COMBO_BOLUS;
 
 public class ExtendedBolus extends Treatment {
     public Number splitNow;
@@ -12,6 +13,6 @@ public class ExtendedBolus extends Treatment {
 
     public ExtendedBolus() {
         super();
-        super.eventType = EventType.COMBO_BOLUS;
+        super.eventType = COMBO_BOLUS;
     }
 }

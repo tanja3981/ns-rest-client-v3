@@ -1,7 +1,8 @@
 package info.nightscout.api.v3.documents.treatments;
 
-import info.nightscout.api.v3.documents.EventType;
 import info.nightscout.api.v3.documents.Treatment;
+
+import static info.nightscout.api.v3.documents.EventType.PROFILE_SWITCH;
 
 public class ProfileSwitch extends Treatment {
     public String profile;
@@ -13,6 +14,6 @@ public class ProfileSwitch extends Treatment {
 
 public ProfileSwitch() {
     super();
-    this.eventType = EventType.PROFILE_SWITCH;
+    this.eventType = PROFILE_SWITCH;
 }
 }

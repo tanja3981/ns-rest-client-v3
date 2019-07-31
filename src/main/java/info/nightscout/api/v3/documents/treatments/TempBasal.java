@@ -1,7 +1,8 @@
 package info.nightscout.api.v3.documents.treatments;
 
-import info.nightscout.api.v3.documents.EventType;
 import info.nightscout.api.v3.documents.Treatment;
+
+import static info.nightscout.api.v3.documents.EventType.TEMP_BASAL;
 
 public class TempBasal extends Treatment {
     //added
@@ -12,6 +13,6 @@ public class TempBasal extends Treatment {
 
     public TempBasal() {
         super();
-        this.eventType = EventType.TEMP_BASAL;
+        this.eventType = TEMP_BASAL;
     }
 }
