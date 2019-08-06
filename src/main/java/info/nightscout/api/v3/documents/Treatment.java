@@ -1,7 +1,5 @@
 package info.nightscout.api.v3.documents;
 
-import com.google.gson.Gson;
-
 public class Treatment extends DocumentBase {
     public String eventType;
     public String created_at;
@@ -15,13 +13,13 @@ public class Treatment extends DocumentBase {
     public String enteredBy;
     public Number duration;
     public Boolean isSMB;
-    public String boluscalcJson;
+    public String boluscalc;
 
-    public void setBolusCalcJson(String json) {
-        this.boluscalcJson = json;
-        //Gson gson = new Gson();
-        //boluscalc = gson.fromJson(json, BolusCalc.class);
-    }
+//    public void setBolusCalcJson(String json) {
+//        this.boluscalcJson = json;
+//        //Gson gson = new Gson();
+//        //boluscalc = gson.fromJson(json, BolusCalc.class);
+//    }
 
     /*class BolusCalc {
         public String eventTime;

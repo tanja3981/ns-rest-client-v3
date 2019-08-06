@@ -1,11 +1,13 @@
 package info.nightscout.api.v3;
 
+import com.google.gson.JsonObject;
 import info.nightscout.api.v3.documents.Devicestatus;
 import info.nightscout.api.v3.err.AuthorizationException;
 import info.nightscout.api.v3.err.NightscoutException;
 import info.nightscout.api.v3.rest.DeviceStatus;
 import info.nightscout.api.v3.search.SearchOptions;
 import info.nightscout.api.v3.search.SearchService;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 

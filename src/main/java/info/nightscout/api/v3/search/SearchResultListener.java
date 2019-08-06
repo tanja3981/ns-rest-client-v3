@@ -1,6 +1,7 @@
 package info.nightscout.api.v3.search;
 
 import info.nightscout.api.v3.documents.Devicestatus;
+import info.nightscout.api.v3.documents.Entry;
 import info.nightscout.api.v3.documents.Profile;
 import info.nightscout.api.v3.documents.Treatment;
 
@@ -8,11 +9,13 @@ import java.util.List;
 
 public interface SearchResultListener {
 
-    void onTreatment(List<Treatment> results);
+    void onEntry(List<Entry> bgs);
 
-    void onDeviceStatus(List<Devicestatus> results);
+    void onTreatment(List<Treatment> treatments);
 
-    void onProfile(List<Profile> results);
+    void onDeviceStatus(String json);
+
+    void onProfile(List<Profile> profiles);
 
     void onFailure(Throwable e);
 }

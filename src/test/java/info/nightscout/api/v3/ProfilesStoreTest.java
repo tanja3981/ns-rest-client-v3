@@ -32,7 +32,6 @@ public class ProfilesStoreTest {
         assertNotNull(token);
 
         service = new ProfilesService(baseUrl, token) {
-            @Override
             public void addTestInterceptors(OkHttpClient.Builder httpClient) {
                 LogInterceptor interceptor = new LogInterceptor();
                 if (!httpClient.interceptors().contains(interceptor)) {

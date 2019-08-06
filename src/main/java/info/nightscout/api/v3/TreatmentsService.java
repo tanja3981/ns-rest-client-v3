@@ -16,26 +16,10 @@ import java.net.HttpURLConnection;
 import java.util.Collections;
 import java.util.List;
 
-
+/**
+ *
+ */
 public class TreatmentsService extends SearchService {
-
-    private Callback<List<Treatment>> getCallback(SearchResultListener listener) {
-        return new Callback<List<Treatment>>() {
-            @Override
-            public void onResponse(Call<List<Treatment>> call, Response<List<Treatment>> response) {
-                try {
-                    listener.onTreatment(getTreatmentsFromResponse(response));
-                } catch (AuthorizationException | NightscoutException e) {
-                    this.onFailure(call, e);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Treatment>> call, Throwable t) {
-                listener.onFailure(t);
-            }
-        };
-    }
 
     /**
      * Creates new service.
@@ -76,15 +60,7 @@ public class TreatmentsService extends SearchService {
         }
     }
 
-    private List<Treatment> getTreatmentsFromResponse(Response<List<Treatment>> response) throws AuthorizationException, NightscoutException {
-        if (response.isSuccessful()) {
-            return response.body();
-        } else if (response.code() == HttpURLConnection.HTTP_UNAUTHORIZED) {
-            throw new AuthorizationException(response.message());
-        } else {
-            throw new NightscoutException(response);
-        }
-    }
+
 
     public void syncTreatments(final SearchResultListener listener, Long lastModified, Integer limit, String fields) throws NightscoutException {
 
@@ -113,4 +89,30 @@ public class TreatmentsService extends SearchService {
 
 
 
+    private Callback<List<Treatment>> getCallback(SearchResultListener listener) {
+        return new Callback<List<Treatment>>() {
+            @Override
+            public void onResponse(Call<List<Treatment>> call, Response<List<Treatment>> response) {
+                try {
+                    listener.onTreatment(getTreatmentsFromResponse(response));
+                } catch (AuthorizationException | NightscoutException e) {
+                    this.onFailure(call, e);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Treatment>> call, Throwable t) {
+                listener.onFailure(t);
+            }
+        };
+    }
+    private List<Treatment> getTreatmentsFromResponse(Response<List<Treatment>> response) throws AuthorizationException, NightscoutException {
+        if (response.isSuccessful()) {
+            return response.body();
+        } else if (response.code() == HttpURLConnection.HTTP_UNAUTHORIZED) {
+            throw new AuthorizationException(response.message());
+        } else {
+            throw new NightscoutException(response);
+        }
+    }
 }

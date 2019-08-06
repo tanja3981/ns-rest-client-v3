@@ -2,6 +2,7 @@ package info.nightscout.api.v3;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import info.nightscout.api.v3.adapter.TreatmentAdapter;
 import info.nightscout.api.v3.auth.DateHeaderInterceptor;
 import info.nightscout.api.v3.auth.TokenInterceptor;
@@ -16,9 +17,12 @@ import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import org.apache.commons.lang3.StringUtils;
 import retrofit2.Call;
+import retrofit2.Converter;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import javax.net.ssl.*;
 import java.io.IOException;
@@ -87,22 +91,31 @@ public class NightscoutService {
         }
     }
 
+
+    public Retrofit getJSonRetrofit() throws NightscoutException {
+        return getRetrofit(JacksonConverterFactory.create());
+    }
+
     public Retrofit getRetrofit() throws NightscoutException {
+        return getRetrofit(GsonConverterFactory.create());
+    }
+
+    protected Retrofit getRetrofit(Converter.Factory factory) throws NightscoutException {
         if (StringUtils.isEmpty(url)) {
             throw new NightscoutException("Missing Nightscout URL");
         }
         try {
-            Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(Treatment.class, new TreatmentAdapter())
-                    .enableComplexMapKeySerialization()
-                    .serializeNulls()
-                    .setDateFormat(DateFormat.LONG)
-                    .setPrettyPrinting()
-                    .create();
+//            Gson gson = new GsonBuilder()
+//                    .registerTypeAdapter(Treatment.class, new TreatmentAdapter())
+//                    .enableComplexMapKeySerialization()
+//                    .serializeNulls()
+//                    .setDateFormat(DateFormat.LONG)
+//                    .setPrettyPrinting()
+//                    .create();
 
             Retrofit.Builder builder = new Retrofit.Builder()
-                    .addConverterFactory(create(gson))
-                    .addConverterFactory(create())
+                    //.addConverterFactory(create(gson))
+                    .addConverterFactory(factory)
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .baseUrl(url);
 
